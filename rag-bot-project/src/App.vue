@@ -32,122 +32,6 @@ const messages = ref([])
 const userInput = ref('')
 const isLoading = ref(false)
 
-// async function sendMessage() {
-//   if (!userInput.value.trim() || isLoading.value) return
-  
-//   // 添加用户消息
-//   messages.value.push({ role: 'user', content: userInput.value })
-  
-//   isLoading.value = true
-//   const currentInput = userInput.value
-//   userInput.value = ''
-
-// try {
-//     const response = await fetch('http://localhost:8000/stream', {  // 确保这是你的流式API端点
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ input: currentInput })
-//     })
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`)
-//     }
-
-//     // 创建一个新的AI消息
-//     const aiMessageIndex = messages.value.push({ 
-//       role: 'assistant', 
-//       content: '' 
-//     }) - 1
-
-//     // 获取响应的读取器
-//     const reader = response.body.getReader()
-//     const decoder = new TextDecoder()
-
-//     while (true) {
-//       const { done, value } = await reader.read()
-//       if (done) break
-
-//       // 解码并添加新的文本到现有消息
-//       const text = decoder.decode(value)
-//       messages.value[aiMessageIndex].content += text
-//     }
-
-//   } catch (error) {
-//     console.error('发送消息失败:', error)
-//     messages.value.push({ 
-//       role: 'assistant', 
-//       content: '抱歉，发生错误，请稍后重试。' 
-//     })
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
-
-// async function sendMessage() {
-//   if (!userInput.value.trim() || isLoading.value) return
-  
-//   // 添加用户消息
-//   messages.value.push({ role: 'user', content: userInput.value })
-  
-//   isLoading.value = true
-//   const currentInput = userInput.value
-//   userInput.value = ''
-
-//   try {
-//     const response = await fetch('http://localhost:8000/stream', {  // 确保这是你的流式API端点
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ input: currentInput })
-//     })
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`)
-//     }
-
-//     // 创建一个新的AI消息
-//     const aiMessageIndex = messages.value.push({ 
-//       role: 'assistant', 
-//       content: '' 
-//     }) - 1
-
-//     // 获取响应的读取器
-//     const reader = response.body.getReader()
-//     const decoder = new TextDecoder()
-
-//     while (true) {
-//       const { done, value } = await reader.read()
-//       if (done) break
-
-//       // 解码并添加新的文本到现有消息
-//       const text = decoder.decode(value)
-//       console.log('Received text:', text)  // 添加调试日志
-      
-//       // 尝试解析数据行
-//       const lines = text.split('\n')
-//       for (const line of lines) {
-//         if (line.startsWith('data: ')) {
-//           const data = line.slice(6).trim()
-//           if (data && data !== '""') {
-//             messages.value[aiMessageIndex].content += data.replace(/^"|"$/g, '')
-//           }
-//         }
-//       }
-//     }
-
-//   } catch (error) {
-//     console.error('发送消息失败:', error)
-//     messages.value.push({ 
-//       role: 'assistant', 
-//       content: '抱歉，发生错误，请稍后重试。' 
-//     })
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
 
 async function sendMessage() {
   if (!userInput.value.trim() || isLoading.value) return
@@ -160,7 +44,7 @@ async function sendMessage() {
   userInput.value = ''
 
   try {
-    const response = await fetch('http://localhost:8000/stream', {
+    const response = await fetch('/api/stream', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
